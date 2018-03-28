@@ -23,4 +23,16 @@ object Main {
         Left(AppError(s"$err is an invalid IP Address."))
     }
   }
+
+  def binaryToDecimal(input: String, res: Long): Long = {
+    val inputLength = input.length
+    inputLength match {
+      case 0 => res
+      case _ =>
+        binaryToDecimal(
+          input.substring(1, inputLength),
+          res + input.substring(0, 1).toInt * (1L << inputLength - 1 )
+        )
+    }
+  }
 }

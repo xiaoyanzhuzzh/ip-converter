@@ -30,4 +30,11 @@ class MainSpec extends Specification {
       Main.withValidation(invalidIP) must beRight(List("192", "168", "1", "1"))
     }
   }
+
+  "binaryToDecimal" should {
+    "return a correct decimal when given a valid binary" in {
+      Main.binaryToDecimal("10101100", 0L) must equalTo(172)
+    }
+  }
 }
+
