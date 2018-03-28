@@ -9,7 +9,11 @@ object Main {
     }
     withValidation(args.toList.head) match {
       case Left(e) => println(e.message)
-      case Right(validIP) => println(validIP)
+      case Right(validIPs) =>
+        val a = validIPs
+          .map(ip => decimalToBinary(ip.toInt, "", 0))
+          .foldRight("")((next, acc) => next + acc)
+        println(binaryToDecimal(a, 0L))
     }
   }
 
@@ -22,6 +26,15 @@ object Main {
       case err =>
         Left(AppError(s"$err is an invalid IP Address."))
     }
+  }
+
+  def decimalToBinary(input: Int, res: String, size: Int): String = {
+    val binary = input / 2 match {
+      case 0 if size == 8 => res
+      case _ =>
+        decimalToBinary(input / 2, res + (input % 2).toString, size + 1)
+    }
+    binary.reverse
   }
 
   def binaryToDecimal(input: String, res: Long): Long = {

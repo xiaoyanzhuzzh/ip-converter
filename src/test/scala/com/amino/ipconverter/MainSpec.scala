@@ -31,6 +31,12 @@ class MainSpec extends Specification {
     }
   }
 
+  "decimalToBinary" should {
+    "return a correct binary when given a valid decimal" in {
+      Main.decimalToBinary(172, "") must beRight("10101100")
+    }
+  }
+
   "binaryToDecimal" should {
     "return a correct decimal when given a valid binary" in {
       Main.binaryToDecimal("10101100", 0L) must equalTo(172)
