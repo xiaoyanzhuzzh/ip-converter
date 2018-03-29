@@ -28,13 +28,15 @@ object Main {
     }
   }
 
-  def decimalToBinary(input: Int, res: String, size: Int): String = {
-    val binary = input / 2 match {
-      case 0 if size == 8 => res
+  def decimalToBinary(input: Int, res: String, size: Int = 8): Either[AppError, String] = {
+    val maxValue = 1 << size
+    val binary: Either[AppError, String] = input / 2 match {
+      case _ if input > maxValue => Left(AppError(s"$input is greater than $maxValue"))
+      case _ if size == 0 => Right(res)
       case _ =>
-        decimalToBinary(input / 2, res + (input % 2).toString, size + 1)
+        decimalToBinary(input / 2, res + (input % 2).toString, size - 1)
     }
-    binary.reverse
+    binary.map(_.reverse)
   }
 
   def binaryToDecimal(input: String, res: Long): Long = {

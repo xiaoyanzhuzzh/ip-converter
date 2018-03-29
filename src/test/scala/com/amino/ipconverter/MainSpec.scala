@@ -32,8 +32,22 @@ class MainSpec extends Specification {
   }
 
   "decimalToBinary" should {
-    "return a correct binary when given a valid decimal" in {
-      Main.decimalToBinary(172, "") must beRight("10101100")
+    "should return a correct binary" should {
+      "when given 0" in {
+        Main.decimalToBinary(0, "") must beRight("00000000")
+      }
+
+      "when given 255" in {
+        Main.decimalToBinary(255, "") must beRight("11111111")
+      }
+
+      "when given 172" in {
+        Main.decimalToBinary(172, "") must beRight("10101100")
+      }
+    }
+
+    "return an error when given a decimal greater than 255" in  {
+      Main.decimalToBinary(300, "") must beLeft
     }
   }
 
