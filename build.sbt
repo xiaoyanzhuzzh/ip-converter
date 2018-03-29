@@ -12,6 +12,18 @@ libraryDependencies ++= Seq(
   "org.specs2"                      %% "specs2-matcher-extra"        % specs2Version    % "test"
 )
 
+scalacOptions ++= Seq(
+  "-Xfatal-warnings",
+  "-Ywarn-unused-import",
+  "-Ywarn-numeric-widen",
+  "-Ywarn-value-discard",
+  "-Ypartial-unification",
+  "-deprecation",
+  "-unchecked",
+  "-feature",
+  "-Xlint",
+  "-language:higherKinds")
+
 scalacOptions in Test ++= Seq("-Yrangepos")
 
 // Read here for optional dependencies:
