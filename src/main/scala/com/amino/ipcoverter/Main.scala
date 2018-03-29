@@ -4,12 +4,12 @@ object Main {
 
   def main(args: Array[String]): Unit = {
     if (args.length == 0 ) {
-      println("Please enter the IP address you want to convert: ")
+      Logger.doLog("Please enter the IP address you want to convert: ")
       return
     }
     convert(args.toList.head) match {
-      case Left(err) => println(err.message)
-      case Right(result) => println(result)
+      case Left(err) => Logger.doLog(err.message)
+      case Right(result) => Logger.doLog(result.toString)
     }
   }
 
