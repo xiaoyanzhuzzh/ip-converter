@@ -5,11 +5,9 @@ version := "0.0.1"
 scalaVersion := "2.12.1"
 sbtVersion := "0.13.16"
 
-val catsVersion = "0.9.0"
 val specs2Version = "3.8.6"
 
 libraryDependencies ++= Seq(
-  "org.typelevel"                   %% "cats"                        % catsVersion,
   "org.specs2"                      %% "specs2-core"                 % specs2Version    % "test",
   "org.specs2"                      %% "specs2-matcher-extra"        % specs2Version    % "test"
 )

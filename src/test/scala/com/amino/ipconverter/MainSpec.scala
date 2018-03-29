@@ -4,6 +4,18 @@ import com.amino.ipcoverter.Main
 import org.specs2.mutable._
 
 class MainSpec extends Specification {
+  "convert" should {
+    "should return correct 32-bit integer when given a valid IP" in {
+      val validIP = "192.168.1.8"
+      Main.convert(validIP) must beRight(3232235784L)
+    }
+
+    "should return an error when given an invalid IP" in {
+      val invalidIP = "zhihui.1 68.1 .8%%"
+      Main.convert(invalidIP) must beLeft
+    }
+  }
+
   "withValidation" should {
     "should return an error when given an invalid IP" in {
       val invalidIP = "000.0000.00.00"

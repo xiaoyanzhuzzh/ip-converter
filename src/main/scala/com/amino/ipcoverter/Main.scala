@@ -7,14 +7,23 @@ object Main {
       println("Please enter the IP address you want to convert: ")
       return
     }
-    withValidation(args.toList.head) match {
-      case Left(e) => println(e.message)
-      case Right(validIPs) =>
-        val a = validIPs
-          .map(ip => decimalToBinary(ip.toInt, "", 0))
-          .foldRight("")((next, acc) => next + acc)
-        println(binaryToDecimal(a, 0L))
+    convert(args.toList.head) match {
+      case Left(err) => println(err.message)
+      case Right(result) => println(result)
     }
+  }
+
+  def convert(input: String): Either[AppError, Long] = {
+    withValidation(input).flatMap(ips => {
+      ips
+        .map(ip => decimalToBinary(ip.toInt, ""))
+        .foldRight[Either[AppError, List[String]]](Right(Nil)) {
+          case (Left(e), _) => Left(e)
+          case (Right(_), Left(e)) => Left(e)
+          case (Right(a), Right(list)) => Right(a :: list)}
+        .map(_.foldRight ("") ((next, acc) => next + acc))
+        .map(binaryToDecimal(_, 0L))
+    })
   }
 
   def withValidation(inputIP: String): Either[AppError, List[String]] = {
