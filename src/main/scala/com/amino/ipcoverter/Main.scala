@@ -16,13 +16,13 @@ object Main {
   def convert(input: String): Either[AppError, Long] = {
     withValidation(input).flatMap(ips => {
       ips
-        .map(ip => decimalToBinary(ip.toInt, ""))
+        .map(ip => decimalToBinary(ip.toInt))
         .foldRight[Either[AppError, List[String]]](Right(Nil)) {
           case (Left(e), _) => Left(e)
           case (Right(_), Left(e)) => Left(e)
           case (Right(a), Right(list)) => Right(a :: list)}
         .map(_.foldRight ("") ((next, acc) => next + acc))
-        .map(binaryToDecimal(_, 0L))
+        .map(binaryToDecimal(_))
     })
   }
 
@@ -37,7 +37,7 @@ object Main {
     }
   }
 
-  def decimalToBinary(input: Int, res: String, size: Int = 8): Either[AppError, String] = {
+  def decimalToBinary(input: Int, res: String = "", size: Int = 8): Either[AppError, String] = {
     val maxValue = 1 << size
     val binary: Either[AppError, String] = input / 2 match {
       case _ if input > maxValue => Left(AppError(s"$input is greater than $maxValue"))
@@ -48,7 +48,7 @@ object Main {
     binary.map(_.reverse)
   }
 
-  def binaryToDecimal(input: String, res: Long): Long = {
+  def binaryToDecimal(input: String, res: Long = 0L): Long = {
     val inputLength = input.length
     inputLength match {
       case 0 => res

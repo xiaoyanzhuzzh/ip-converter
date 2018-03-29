@@ -68,26 +68,26 @@ class MainSpec extends Specification {
     }
 
     "return an error when the number is greater than 255" in  {
-      Main.decimalToBinary(300, "") must beLeft
+      Main.decimalToBinary(300) must beLeft
     }
   }
 
   "binaryToDecimal" should {
     "return a correct decimal" should {
       "when the binary is 00000000" in {
-        Main.binaryToDecimal("00000000", 0L) must equalTo(0L)
+        Main.binaryToDecimal("00000000") must equalTo(0L)
       }
 
       "when the binary is 11111111" in {
-        Main.binaryToDecimal("11111111", 0L) must equalTo(255L)
+        Main.binaryToDecimal("11111111") must equalTo(255L)
       }
 
       "when the binary is 10101100" in {
-        Main.binaryToDecimal("10101100", 0L) must equalTo(172L)
+        Main.binaryToDecimal("10101100") must equalTo(172L)
       }
 
       "when the binary is 1010110000001001101101" in {
-        Main.binaryToDecimal("1010110000001001101101", 0L) must equalTo(2818669L)
+        Main.binaryToDecimal("1010110000001001101101") must equalTo(2818669L)
       }
     }
   }
